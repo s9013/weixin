@@ -1,0 +1,46 @@
+<!DOCTYPE>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>test</title>
+</head>
+<body style="background-color: red">
+	<h1>Hi</h1>
+	<h1 id="name">123</h1>
+</body>
+<script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script>
+	//alert(location.href);
+	function getQueryString(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		if (r != null)
+			return (r[2]);
+		return null;
+	}
+	//alert(decodeURI(getQueryString('nickName')));
+	$('#name').text(decodeURI(getQueryString('nickName')));
+	
+	//alert(getQueryString('id'));
+	//alert(getQueryString('token'));
+	var id = getQueryString('id');
+	var token = getQueryString('token');
+	
+	var url = "https://api.weixin.qq.com/cgi-bin/user/info?access_token="+token+
+			"&openid="+id;
+	
+	$.ajax({
+		type : 'get',
+		contentType : "application/json",
+		dataType : 'JSON',
+		url : url,
+		success : function(data) {
+			alert(data);
+			console.log(data);
+			console.log(new Date(data.date));
+		}
+	})
+	
+	</script>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>weixin1</display-name>
+  <servlet>
+    <servlet-name>initServlet</servlet-name>
+    <servlet-class>com.weixin.servlet.InitServlet</servlet-class>
+    <init-param>
+      <param-name>APPID</param-name>
+      <param-value>wxf72b2d5b2c0038d4</param-value>
+    </init-param>
+    <init-param>
+      <param-name>APPSECRET</param-name>
+      <param-value>a661c50ea12ef2d43476fc4485b66468</param-value>
+    </init-param>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+  <servlet>
+    <servlet-name>weixinServlet</servlet-name>
+    <servlet-class>com.weixin.servlet.WeixinServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>weixinServlet</servlet-name>
+    <url-pattern>/weixin.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>OAuthServlet</servlet-name>
+    <servlet-class>com.weixin.servlet.OAuthServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>OAuthServlet</servlet-name>
+    <url-pattern>/oauth.do</url-pattern>
+  </servlet-mapping>
+</web-app>
