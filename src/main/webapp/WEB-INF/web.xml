@@ -15,10 +15,6 @@
 			<param-name>APPSECRET</param-name>
 			<param-value>a661c50ea12ef2d43476fc4485b66468</param-value>
 		</init-param>
-		<init-param>
-			<param-name>log4j</param-name>
-			<param-value>\WEB-INF\classes\log4j.properties</param-value>
-		</init-param>
 		<load-on-startup>0</load-on-startup>
 	</servlet>
 	<servlet>
@@ -37,7 +33,5 @@
 		<servlet-name>OAuthServlet</servlet-name>
 		<url-pattern>/oauth.do</url-pattern>
 	</servlet-mapping>
-
-
 
 </web-app>

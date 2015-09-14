@@ -9,3 +9,5 @@ ngrok http -subdomain=weixin 8080
 ~~~
 
 	
+###log4j2
+http://blog.csdn.net/lu8000/article/details/25754415

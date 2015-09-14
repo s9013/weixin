@@ -4,8 +4,8 @@ package com.weixin.servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.log4j.Logger;
-import org.apache.log4j.PropertyConfigurator;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.weixin.util.TokenThread;
 
@@ -15,8 +15,9 @@ import com.weixin.util.TokenThread;
 public class InitServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = -6319898826127265611L;
-	private static Logger log = Logger.getLogger(InitServlet.class);
 
+	private static Logger log = LogManager.getLogger(InitServlet.class);
+	
 	public void init() throws ServletException {
 
 		TokenThread.APPID = getInitParameter("APPID");
@@ -28,11 +29,11 @@ public class InitServlet extends HttpServlet {
 		// start token thread
 		new Thread(new TokenThread()).start();
 		
-		String prefix = getServletContext().getRealPath("/");  
-        String file = getInitParameter("log4j");  
-        if (file != null) {  
-            PropertyConfigurator.configure(prefix + file);  
-        }  
+//		String prefix = getServletContext().getRealPath("/");  
+//        String file = getInitParameter("log4j");  
+//        if (file != null) {  
+//            PropertyConfigurator.configure(prefix + file);  
+//        }  
 		
 		
 	}

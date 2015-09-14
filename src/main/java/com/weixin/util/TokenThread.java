@@ -1,6 +1,7 @@
 package com.weixin.util;
 
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.weixin.vo.AccessToken;
 
@@ -9,7 +10,8 @@ import com.weixin.vo.AccessToken;
  */
 public class TokenThread implements Runnable{
 	
-	private static Logger log = Logger.getLogger(TokenThread.class); 
+	//private static Logger log = Logger.getLogger(TokenThread.class); 
+	private static Logger log = LogManager.getLogger(TokenThread.class.getName());
 	
     public static String APPID = "wxf72b2d5b2c0038d4";    
     public static String APPSECRET = "a661c50ea12ef2d43476fc4485b66468";
