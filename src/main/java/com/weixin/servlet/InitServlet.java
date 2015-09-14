@@ -29,12 +29,5 @@ public class InitServlet extends HttpServlet {
 		// start token thread
 		new Thread(new TokenThread()).start();
 		
-//		String prefix = getServletContext().getRealPath("/");  
-//        String file = getInitParameter("log4j");  
-//        if (file != null) {  
-//            PropertyConfigurator.configure(prefix + file);  
-//        }  
-		
-		
 	}
 }
