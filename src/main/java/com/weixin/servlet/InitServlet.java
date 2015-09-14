@@ -5,9 +5,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 import com.weixin.util.TokenThread;
-import com.weixin.util.WeixinUtil;
 
 /**
  * @author Jay
@@ -15,22 +15,25 @@ import com.weixin.util.WeixinUtil;
 public class InitServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = -6319898826127265611L;
-	private static Logger log = Logger.getLogger(WeixinUtil.class);
+	private static Logger log = Logger.getLogger(InitServlet.class);
 
 	public void init() throws ServletException {
 
 		TokenThread.APPID = getInitParameter("APPID");
 		TokenThread.APPSECRET = getInitParameter("APPSECRET");
-
-		log.info("weixin api appid:{}" + TokenThread.APPID);
-		log.info("weixin api appsecret:{}" + TokenThread.APPSECRET);
-
-		// 未配置appid、appsecret时给出提示
-		if ("".equals(TokenThread.APPID) || "".equals(TokenThread.APPSECRET)) {
-			log.error("appid and appsecret configuration error, please check carefully.");
-		} else {
-			// 启动定时获取access_token的线程
-			new Thread(new TokenThread()).start();
-		}
+		
+		log.info("appid:" + TokenThread.APPID);
+		log.info("appsecret:" + TokenThread.APPSECRET);
+		
+		// start token thread
+		new Thread(new TokenThread()).start();
+		
+		String prefix = getServletContext().getRealPath("/");  
+        String file = getInitParameter("log4j");  
+        if (file != null) {  
+            PropertyConfigurator.configure(prefix + file);  
+        }  
+		
+		
 	}
 }

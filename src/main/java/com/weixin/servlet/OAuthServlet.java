@@ -24,17 +24,17 @@ public class OAuthServlet extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setCharacterEncoding("UTF-8");
-		  
+
 		String code = request.getParameter("code");
-		  if (!"authdeny".equals(code)) {
-			   System.out.println(code);	  
-			   Oauth2Token oauth2Token = WeixinUtil.getOauth2AccessToken(code);
-	
-			   String openId = oauth2Token.getOpenId();
-			   UserInfo userInfo = WeixinUtil.getUser(TokenThread.accessToken.getAccessToken(), openId);
-			   
-			   request.setAttribute("UserInfo", userInfo);
-		  }
-		  request.getRequestDispatcher("userInfo.jsp").forward(request, response);
+		if (!"authdeny".equals(code)) {
+			System.out.println(code);
+			Oauth2Token oauth2Token = WeixinUtil.getOauth2AccessToken(code);
+
+			String openId = oauth2Token.getOpenId();
+			UserInfo userInfo = WeixinUtil.getUser(TokenThread.accessToken.getAccessToken(), openId);
+
+			request.setAttribute("UserInfo", userInfo);
 		}
+		request.getRequestDispatcher("userInfo.jsp").forward(request, response);
+	}
 }

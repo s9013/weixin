@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONObject;
 
+import org.apache.log4j.Logger;
 import org.dom4j.DocumentException;
 
 import com.weixin.util.CheckUtil;
@@ -25,10 +26,12 @@ public class WeixinServlet extends HttpServlet{
 
 	private static final long serialVersionUID = -2836724667530087285L;
 
+	private static Logger log = Logger.getLogger(WeixinUtil.class);
+	
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println("验证");
+		log.info("验证");
 		String signature = request.getParameter("signature");	
 		String timestamp = request.getParameter("timestamp");	
 		String nonce = request.getParameter("nonce");	
@@ -47,7 +50,7 @@ public class WeixinServlet extends HttpServlet{
 		try {
 			Map<String, String> map = MessageUtil.xmlToMap(request);
 			
-			System.out.println(JSONObject.fromObject(map).toString());
+			log.info(JSONObject.fromObject(map).toString());
 			
 			String toUserName = map.get("ToUserName");
 			String fromUserName = map.get("FromUserName");
@@ -77,7 +80,7 @@ public class WeixinServlet extends HttpServlet{
 					System.out.println(msg);
 				}else{
 					msg += "OMG!!!";
-					System.out.println(msg);
+					log.info(msg);
 				}
 				message = MessageUtil.initText(toUserName, fromUserName, msg);
 			}else if("event".equals(msgType) && map.get("Event").equals("CLICK")){
@@ -86,7 +89,7 @@ public class WeixinServlet extends HttpServlet{
 				//msg += "您好！您还没有绑定，请先绑定！ <a href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx8dfda79a073efa18&redirect_uri=http%3A%2F%2Fwind%2Engrok%2Eio%2Fwechat%2FoauthServlet&response_type=code&scope=snsapi_base&state=123#wechat_redirect'>绑定</a>";
 				//msg += " <a href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx520c15f417810387&redirect_uri=http%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&response_type=code&scope=snsapi_userinfo&state=123#wechat_redirect'>click base</a>";
 				//msg += " <a href='https://open.weixin.qq.com/connect/oauth2/authorize?appid=wx520c15f417810387&redirect_uri=http%3A%2F%2Fchong.qq.com%2Fphp%2Findex.php%3Fd%3D%26c%3DwxAdapter%26m%3DmobileDeal%26showwxpaytitle%3D1%26vb2ctag%3D4_2030_5_1194_60&response_type=code&scope=snsapi_base&state=123#wechat_redirect'>click</a>";
-				System.out.println(msg);
+				log.info(msg);
 				message = MessageUtil.initText(toUserName, fromUserName, msg);
 			
 			}else if("location".equals(msgType)){// 地址
@@ -94,7 +97,7 @@ public class WeixinServlet extends HttpServlet{
 				message = MessageUtil.initText(toUserName, fromUserName, msg);
 			}
 			
-			System.out.println("token: "+TokenThread.accessToken.getAccessToken());
+			log.info("token: "+TokenThread.accessToken.getAccessToken());
 			
 			out.print(message);
 			
